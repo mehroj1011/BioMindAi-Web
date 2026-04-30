@@ -1,0 +1,63 @@
+import { useMemo } from 'react'
+
+const APK_PUBLIC_PATH = 'https://github.com/mehroj1011/BioMindAi/releases/latest/download/biomindai-android-latest.apk'
+
+export function AndroidDownloadPage() {
+  const isAndroid = useMemo(() => {
+    if (typeof navigator === 'undefined') return false
+    return /Android/i.test(navigator.userAgent)
+  }, [])
+
+  return (
+    <div className="grid gap-6">
+      <section className="glass rounded-3xl p-6 sm:p-10">
+        <h2 className="text-2xl font-semibold tracking-tight">Android (APK)</h2>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-bm-muted sm:text-base">
+          Дар ин ҷо шумо метавонед APK‑и барномаро зеркашӣ кунед ва дар телефони Android насб кунед.
+        </p>
+
+        <div className="mt-6 flex flex-wrap gap-3">
+          <a
+            href={APK_PUBLIC_PATH}
+            download
+            className="rounded-2xl bg-gradient-to-r from-bm-emerald to-bm-cyan px-5 py-3 text-sm font-semibold text-black shadow-glass transition hover:opacity-95"
+          >
+            Зеркашии APK
+          </a>
+          <a
+            href={APK_PUBLIC_PATH}
+            className="rounded-2xl border border-bm-border bg-white/5 px-5 py-3 text-sm font-semibold text-bm-text transition hover:bg-white/8"
+          >
+            Кушодани файл
+          </a>
+        </div>
+
+        <div className="mt-6 rounded-3xl border border-bm-border bg-black/20 p-5">
+          <div className="text-sm font-semibold">Чӣ тавр насб кардан</div>
+          <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm leading-relaxed text-bm-muted">
+            <li>Файлро зеркашӣ кунед: <span className="font-mono text-bm-text">{APK_PUBLIC_PATH}</span></li>
+            <li>Файлро аз “Downloads/Зеркашиҳо” кушоед.</li>
+            <li>
+              Агар Android иҷозат напурсад ё насбро манъ кунад, ба <span className="font-semibold">Settings → Security</span> (ё{' '}
+              <span className="font-semibold">Privacy</span>) дароед ва иҷозати “Install unknown apps/Насб аз манбаи номаълум”‑ро барои браузер фаъол кунед.
+            </li>
+            <li>Боз ба файл баргардед ва “Install/Насб”‑ро пахш кунед.</li>
+          </ol>
+          {!isAndroid && (
+            <div className="mt-4 text-xs text-bm-muted">
+              Эзоҳ: шумо ҳоло дар Android нестед. Барои насб кардан, саҳифаро дар телефони Android кушоед.
+            </div>
+          )}
+        </div>
+
+        <div className="mt-6 rounded-3xl border border-white/10 bg-white/5 p-5 text-sm text-bm-muted">
+          <div className="font-semibold text-bm-text">Муҳим</div>
+          <div className="mt-2 leading-relaxed">
+            Ин тугма танҳо зеркашии файлро оғоз мекунад. Насбкунии худкор аз браузер имкон надорад — Android бояд тасдиқи корбарро гирад.
+          </div>
+        </div>
+      </section>
+    </div>
+  )
+}
+

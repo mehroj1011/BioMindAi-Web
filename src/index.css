@@ -1,0 +1,118 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 700px at 18% 12%, rgba(0, 200, 83, 0.16), transparent 55%),
+    radial-gradient(1100px 650px at 82% 18%, rgba(52, 217, 255, 0.10), transparent 55%),
+    radial-gradient(900px 600px at 55% 92%, rgba(0, 200, 83, 0.10), transparent 55%),
+    radial-gradient(900px 600px at 75% 75%, rgba(167, 139, 250, 0.08), transparent 60%),
+    #070A12;
+  color: #E9F2FF;
+}
+
+::selection {
+  background: rgba(0, 200, 83, 0.28);
+}
+
+.glass {
+  @apply bg-bm-panel border border-bm-border shadow-glass backdrop-blur-glass;
+}
+
+.glass-strong {
+  @apply bg-bm-panel2 border border-bm-border shadow-glass backdrop-blur-glass;
+}
+
+/* Premium glass: reflections + depth */
+.glass-premium {
+  @apply border border-white/12 shadow-glass backdrop-blur-glass;
+  background:
+    radial-gradient(900px 360px at 20% 5%, rgba(255,255,255,0.14), transparent 55%),
+    radial-gradient(700px 320px at 80% 0%, rgba(52,217,255,0.10), transparent 55%),
+    rgba(255,255,255,0.08);
+}
+
+.glass-premium-strong {
+  @apply border border-white/14 shadow-glass backdrop-blur-glass;
+  background:
+    radial-gradient(900px 360px at 20% 5%, rgba(255,255,255,0.18), transparent 55%),
+    radial-gradient(700px 320px at 80% 0%, rgba(0,200,83,0.10), transparent 55%),
+    rgba(255,255,255,0.11);
+}
+
+/* Native-feel motion */
+@media (prefers-reduced-motion: no-preference) {
+  .motion-fade {
+    animation: bmFade 220ms ease-out both;
+  }
+  .motion-pop {
+    animation: bmPop 260ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+  }
+}
+
+@keyframes bmFade {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bmPop {
+  0% { opacity: 0; transform: translateY(8px) scale(0.985); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Lab dashboard: line draw + subtle float */
+@media (prefers-reduced-motion: no-preference) {
+  .bm-line-draw {
+    stroke-dasharray: 2400;
+    stroke-dashoffset: 2400;
+    animation: bmLineDraw 520ms ease-out both;
+  }
+  .bm-float {
+    animation: bmFloat 2.8s ease-in-out infinite;
+  }
+}
+
+@keyframes bmLineDraw {
+  from { stroke-dashoffset: 2400; opacity: 0.35; }
+  to { stroke-dashoffset: 0; opacity: 1; }
+}
+
+@keyframes bmFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+/* Premium sliders */
+.bm-slider {
+  appearance: none;
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(0,200,83,0.55), rgba(52,217,255,0.55));
+  outline: none;
+}
+.bm-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.35));
+  border: 1px solid rgba(255,255,255,0.20);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+}
+.bm-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.35));
+  border: 1px solid rgba(255,255,255,0.20);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+}
+
