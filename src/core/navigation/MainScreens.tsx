@@ -41,7 +41,8 @@ export function MainScreens() {
       <Route path="/lab" element={onboarded ? <LabPage /> : <Navigate to="/onboarding" replace />} />
       <Route path="/bioscan" element={onboarded ? <BioScanPage /> : <Navigate to="/onboarding" replace />} />
       <Route path="/anatomy" element={onboarded ? <AnatomyPage /> : <Navigate to="/onboarding" replace />} />
-      <Route path="/android" element={onboarded ? <AndroidDownloadPage /> : <Navigate to="/onboarding" replace />} />
+      {/* Android download should be accessible without onboarding */}
+      <Route path="/android" element={<AndroidDownloadPage />} />
       <Route path="/progress" element={onboarded ? <ProgressPage /> : <Navigate to="/onboarding" replace />} />
       <Route path="/profile" element={onboarded ? <ProfilePage /> : <Navigate to="/onboarding" replace />} />
     </Routes>
