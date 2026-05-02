@@ -1,10 +1,10 @@
-/* Simple service worker for BioMind AI PWA.
+/* Simple service worker for БиоДониш PWA.
    - Cache-first for static assets
    - Network-first for /api
    - SPA offline fallback to cached /index.html
 */
 
-const CACHE_VERSION = 'bm-pwa-v5'
+const CACHE_VERSION = 'bm-pwa-v6'
 const CORE_CACHE = `${CACHE_VERSION}:core`
 const RUNTIME_CACHE = `${CACHE_VERSION}:runtime`
 const API_CACHE = `${CACHE_VERSION}:api`
@@ -15,10 +15,7 @@ const CORE_ASSETS = [
   '/',
   '/index.html',
   '/manifest.webmanifest',
-  '/favicon.png',
-  '/apple-touch-icon.png',
-  '/icon-192.png',
-  '/icon-512.png',
+  '/favicon.svg',
   '/icons.svg',
 ]
 

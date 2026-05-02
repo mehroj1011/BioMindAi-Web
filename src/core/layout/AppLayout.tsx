@@ -11,7 +11,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
         <main className="flex-1 py-6 pb-28 sm:pb-8 motion-fade min-w-0">{children}</main>
 
         <footer className="pb-10 pt-4 text-center text-xs text-bm-muted">
-          © {new Date().getFullYear()} BioMind AI — версияи веб (Tajik).
+          © {new Date().getFullYear()} БиоДониш — версияи веб (Tajik).
         </footer>
       </div>
 

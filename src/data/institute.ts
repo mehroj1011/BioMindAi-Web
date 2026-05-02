@@ -470,7 +470,7 @@ export const instituteBooks100Plus: Book[] = (() => {
     base.push({
       id: `reading-${area}-${n}`,
       titleTj: `Рӯйхати мутолиа: ${area} — мавод №${n + 1}`,
-      author: 'Тартиб додашуда барои BioMind',
+      author: 'Тартиб додашуда барои БиоДониш',
       year: '2026',
       language: 'TJ',
       area,

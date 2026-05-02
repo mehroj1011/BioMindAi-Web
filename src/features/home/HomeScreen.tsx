@@ -14,7 +14,7 @@ export function HomeScreen() {
               Омӯзиш, таҷриба ва анатомияи 3D — ҳамааш дар як ҷо
             </h1>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-bm-muted sm:text-base">
-              BioMind AI — маҳсулоти таълимӣ бо интерфейси зебо ва равон. Ин веб-версия барои кор дар браузер тарҳрезӣ шудааст.
+              БиоДониш — маҳсулоти таълимӣ бо интерфейси зебо ва равон. Ин веб-версия барои кор дар браузер тарҳрезӣ шудааст.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link

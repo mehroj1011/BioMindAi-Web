@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { cn } from '../../utils/cn'
 
 function TopLink({ to, label }: { to: string; label: string }) {
@@ -24,13 +24,20 @@ export function GlassNavbar() {
   return (
     <header className={cn('glass-premium-strong sticky top-4 z-20 rounded-[26px] px-4 py-3 sm:px-5', 'motion-fade')}>
       <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-[22px] bg-gradient-to-br from-bm-emerald/55 via-bm-cyan/40 to-bm-emerald/20 border border-white/12 shadow-glass" />
-          <div className="leading-tight">
-            <div className="text-base font-semibold tracking-tight">BioMind AI</div>
+        <Link to="/" className="flex min-w-0 items-center gap-3">
+          <img
+            src="/favicon.svg"
+            alt=""
+            width={40}
+            height={40}
+            decoding="async"
+            className="h-10 w-10 shrink-0 rounded-full border border-white/12 bg-black/20 object-contain p-1 shadow-glass"
+          />
+          <div className="min-w-0 leading-tight">
+            <div className="text-base font-semibold tracking-tight">БиоДониш</div>
             <div className="text-xs text-bm-muted">Веби мобилӣ бо шиша‑эффект</div>
           </div>
-        </div>
+        </Link>
         <nav className="hidden items-center gap-1 sm:flex">
           <TopLink to="/" label="Асосӣ" />
           <TopLink to="/lessons" label="Дарс" />

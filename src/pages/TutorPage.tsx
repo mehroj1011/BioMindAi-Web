@@ -76,7 +76,7 @@ export function TutorPage() {
       role: 'assistant',
       at: Date.now(),
       text:
-        'Салом! Ман мураббии BioMind ҳастам. Саволатонро бо забони тоҷикӣ нависед — ман кӯмак мекунам.\n\n(Ҳоло демо‑режим аст; баъд Gemini/API пайваст мекунем.)',
+        'Салом! Ман мураббии БиоДониш ҳастам. Саволатонро бо забони тоҷикӣ нависед — ман кӯмак мекунам.\n\n(Ҳоло демо‑режим аст; баъд Gemini/API пайваст мекунем.)',
     },
   ])
   const [draft, setDraft] = useState(() => getLocalStorageString(storageKeys.tutorDraft) ?? '')
@@ -206,7 +206,7 @@ export function TutorPage() {
                   role: 'assistant',
                   at: Date.now(),
                   text:
-                    'Салом! Ман мураббии BioMind ҳастам. Саволатонро нависед.\n\n(Ҳоло демо‑режим аст; баъд Gemini/API пайваст мекунем.)',
+                    'Салом! Ман мураббии БиоДониш ҳастам. Саволатонро нависед.\n\n(Ҳоло демо‑режим аст; баъд Gemini/API пайваст мекунем.)',
                 },
               ])
             }
