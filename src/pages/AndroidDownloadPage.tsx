@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react'
 
 const APK_PUBLIC_PATH = 'https://github.com/mehroj1011/BioMindAi/releases/latest/download/biomindai-android-latest.apk'
-const BUILD_ID = 'e583cc2'
+const APK_FILENAME = 'biomindai-android-latest.apk'
+const BUILD_ID = '450901f'
 
 export function AndroidDownloadPage() {
   const isAndroid = useMemo(() => {
@@ -9,6 +10,35 @@ export function AndroidDownloadPage() {
     return /Android/i.test(navigator.userAgent)
   }, [])
   const [dlToken, setDlToken] = useState(0)
+  const [downloading, setDownloading] = useState(false)
+  const [dlErr, setDlErr] = useState<string | null>(null)
+
+  async function startDownload() {
+    setDlErr(null)
+    // Best UX: fetch → blob → download without leaving the page.
+    try {
+      setDownloading(true)
+      const res = await fetch(APK_PUBLIC_PATH, { mode: 'cors' })
+      if (!res.ok) throw new Error(`Код ${res.status}`)
+      const blob = await res.blob()
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = APK_FILENAME
+      a.style.display = 'none'
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+      window.setTimeout(() => URL.revokeObjectURL(url), 30_000)
+      return
+    } catch (e) {
+      // Fallback: trigger a download request without leaving the page (may still be blocked by some browsers).
+      setDlErr('Агар зеркашӣ оғоз нашуд, аз “Линки захиравӣ” истифода баред.')
+      setDlToken((x) => x + 1)
+    } finally {
+      setDownloading(false)
+    }
+  }
 
   return (
     <div className="grid gap-6">
@@ -21,10 +51,11 @@ export function AndroidDownloadPage() {
         <div className="mt-6 flex flex-wrap gap-3">
           <button
             type="button"
-            onClick={() => setDlToken((x) => x + 1)}
+            onClick={startDownload}
+            disabled={downloading}
             className="rounded-2xl bg-gradient-to-r from-bm-emerald to-bm-cyan px-5 py-3 text-sm font-semibold text-black shadow-glass transition hover:opacity-95"
           >
-            Зеркашии APK
+            {downloading ? 'Зеркашӣ оғоз мешавад…' : 'Зеркашии APK'}
           </button>
           <a
             href={APK_PUBLIC_PATH}
@@ -45,11 +76,12 @@ export function AndroidDownloadPage() {
             className="hidden"
           />
         )}
+        {dlErr && <div className="mt-3 text-xs text-bm-muted">{dlErr}</div>}
 
         <div className="mt-6 rounded-3xl border border-bm-border bg-black/20 p-5">
           <div className="text-sm font-semibold">Чӣ тавр насб кардан</div>
           <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm leading-relaxed text-bm-muted">
-            <li>Файлро зеркашӣ кунед: <span className="font-mono text-bm-text">{APK_PUBLIC_PATH}</span></li>
+            <li>Тугмаи “Зеркашии APK”‑ро пахш кунед ва файлро гиред.</li>
             <li>Файлро аз “Downloads/Зеркашиҳо” кушоед.</li>
             <li>
               Агар Android иҷозат напурсад ё насбро манъ кунад, ба <span className="font-semibold">Settings → Security</span> (ё{' '}
