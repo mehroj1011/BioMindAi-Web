@@ -4,7 +4,7 @@
    - SPA offline fallback to cached /index.html
 */
 
-const CACHE_VERSION = 'bm-pwa-v2'
+const CACHE_VERSION = 'bm-pwa-v3'
 const CORE_CACHE = `${CACHE_VERSION}:core`
 const RUNTIME_CACHE = `${CACHE_VERSION}:runtime`
 const API_CACHE = `${CACHE_VERSION}:api`

@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 
 const APK_PUBLIC_PATH = 'https://github.com/mehroj1011/BioMindAi/releases/latest/download/biomindai-android-latest.apk'
+const BUILD_ID = '3d2d44f'
 
 export function AndroidDownloadPage() {
   const isAndroid = useMemo(() => {
@@ -68,6 +69,7 @@ export function AndroidDownloadPage() {
           <div className="mt-2 leading-relaxed">
             Ин тугма танҳо зеркашии файлро оғоз мекунад. Насбкунии худкор аз браузер имкон надорад — Android бояд тасдиқи корбарро гирад.
           </div>
+          <div className="mt-3 text-[11px] font-mono text-bm-muted/80">Build: {BUILD_ID}</div>
         </div>
       </section>
     </div>
