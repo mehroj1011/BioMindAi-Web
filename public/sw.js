@@ -4,7 +4,7 @@
    - SPA offline fallback to cached /index.html
 */
 
-const CACHE_VERSION = 'bm-pwa-v6'
+const CACHE_VERSION = 'bm-pwa-v7'
 const CORE_CACHE = `${CACHE_VERSION}:core`
 const RUNTIME_CACHE = `${CACHE_VERSION}:runtime`
 const API_CACHE = `${CACHE_VERSION}:api`
@@ -15,6 +15,9 @@ const CORE_ASSETS = [
   '/',
   '/index.html',
   '/manifest.webmanifest',
+  '/icon-192.png',
+  '/icon-512.png',
+  '/apple-touch-icon.png',
   '/favicon.svg',
   '/icons.svg',
 ]

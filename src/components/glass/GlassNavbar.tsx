@@ -26,7 +26,7 @@ export function GlassNavbar() {
       <div className="flex items-center justify-between gap-3">
         <Link to="/" className="flex min-w-0 items-center gap-3">
           <img
-            src="/favicon.svg"
+            src="/icon-192.png"
             alt=""
             width={40}
             height={40}
