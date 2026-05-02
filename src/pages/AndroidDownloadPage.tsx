@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 
 const APK_PUBLIC_PATH = 'https://github.com/mehroj1011/BioMindAi/releases/latest/download/biomindai-android-latest.apk'
 
@@ -7,6 +7,7 @@ export function AndroidDownloadPage() {
     if (typeof navigator === 'undefined') return false
     return /Android/i.test(navigator.userAgent)
   }, [])
+  const [dlToken, setDlToken] = useState(0)
 
   return (
     <div className="grid gap-6">
@@ -17,20 +18,32 @@ export function AndroidDownloadPage() {
         </p>
 
         <div className="mt-6 flex flex-wrap gap-3">
-          <a
-            href={APK_PUBLIC_PATH}
-            download
+          <button
+            type="button"
+            onClick={() => setDlToken((x) => x + 1)}
             className="rounded-2xl bg-gradient-to-r from-bm-emerald to-bm-cyan px-5 py-3 text-sm font-semibold text-black shadow-glass transition hover:opacity-95"
           >
             Зеркашии APK
-          </a>
+          </button>
           <a
             href={APK_PUBLIC_PATH}
+            target="_blank"
+            rel="noreferrer"
             className="rounded-2xl border border-bm-border bg-white/5 px-5 py-3 text-sm font-semibold text-bm-text transition hover:bg-white/8"
           >
-            Кушодани файл
+            Линки захиравӣ
           </a>
         </div>
+
+        {/* Trigger download without leaving the page */}
+        {dlToken > 0 && (
+          <iframe
+            key={dlToken}
+            src={APK_PUBLIC_PATH}
+            title="apk-download"
+            className="hidden"
+          />
+        )}
 
         <div className="mt-6 rounded-3xl border border-bm-border bg-black/20 p-5">
           <div className="text-sm font-semibold">Чӣ тавр насб кардан</div>
