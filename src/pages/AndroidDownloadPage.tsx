@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 
 const APK_PUBLIC_PATH = 'https://github.com/mehroj1011/BioMindAi/releases/latest/download/biomindai-android-latest.apk'
-const BUILD_ID = 'baef107'
+const BUILD_ID = 'e583cc2'
 
 export function AndroidDownloadPage() {
   const isAndroid = useMemo(() => {
