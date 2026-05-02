@@ -1,8 +1,11 @@
 import { useMemo, useState } from 'react'
 
-const APK_PUBLIC_PATH = 'https://github.com/mehroj1011/BioMindAi/releases/latest/download/biomindai-android-latest.apk'
+// Same-origin redirect endpoint (Vercel serverless) → avoids CORS + fixes wrong GitHub filenames.
+const APK_PUBLIC_PATH = '/api/apk'
+const APK_FALLBACK_URL =
+  'https://github.com/mehroj1011/BioMindAi/releases/download/v1.0.0/app-release.apk'
 const APK_FILENAME = 'biomindai-android-latest.apk'
-const BUILD_ID = '450901f'
+const BUILD_ID = 'apk-proxy-v3'
 
 export function AndroidDownloadPage() {
   const isAndroid = useMemo(() => {
@@ -13,31 +16,50 @@ export function AndroidDownloadPage() {
   const [downloading, setDownloading] = useState(false)
   const [dlErr, setDlErr] = useState<string | null>(null)
 
-  async function startDownload() {
+  function startDownload() {
     setDlErr(null)
-    // Best UX: fetch → blob → download without leaving the page.
+    setDownloading(true)
+
+    // IMPORTANT: do not `fetch()` this URL — the 302 lands on `github.com` and becomes a cross-origin
+    // redirected response, which browsers will block for JS reads (opaque / CORS), so the blob path fails.
+    // Navigation-based triggers keep the SPA origin on the first hop (`/api/apk`) and let the browser follow the redirect.
+
+    let opened: Window | null = null
     try {
-      setDownloading(true)
-      const res = await fetch(APK_PUBLIC_PATH, { mode: 'cors' })
-      if (!res.ok) throw new Error(`Код ${res.status}`)
-      const blob = await res.blob()
-      const url = URL.createObjectURL(blob)
+      opened = window.open('about:blank', '_blank', 'noopener,noreferrer')
+    } catch {
+      opened = null
+    }
+
+    if (opened) {
+      try {
+        opened.opener = null
+      } catch {
+        // ignore
+      }
+      opened.location.href = APK_PUBLIC_PATH
+      setDownloading(false)
+      return
+    }
+
+    // Popup blocked: try a real navigation download in the same tab (reliable, but leaves the SPA).
+    try {
       const a = document.createElement('a')
-      a.href = url
+      a.href = APK_PUBLIC_PATH
       a.download = APK_FILENAME
+      a.rel = 'noopener'
+      a.target = '_blank'
       a.style.display = 'none'
       document.body.appendChild(a)
       a.click()
       a.remove()
-      window.setTimeout(() => URL.revokeObjectURL(url), 30_000)
-      return
-    } catch (e) {
-      // Fallback: trigger a download request without leaving the page (may still be blocked by some browsers).
-      setDlErr('Агар зеркашӣ оғоз нашуд, аз “Линки захиравӣ” истифода баред.')
-      setDlToken((x) => x + 1)
-    } finally {
-      setDownloading(false)
+    } catch {
+      // ignore
     }
+
+    setDlErr('Агар зеркашӣ оғоз нашуд, аз “Линки захиравӣ” истифода баред.')
+    setDlToken((x) => x + 1)
+    setDownloading(false)
   }
 
   return (
@@ -58,9 +80,7 @@ export function AndroidDownloadPage() {
             {downloading ? 'Зеркашӣ оғоз мешавад…' : 'Зеркашии APK'}
           </button>
           <a
-            href={APK_PUBLIC_PATH}
-            target="_blank"
-            rel="noreferrer"
+            href={APK_FALLBACK_URL}
             className="rounded-2xl border border-bm-border bg-white/5 px-5 py-3 text-sm font-semibold text-bm-text transition hover:bg-white/8"
           >
             Линки захиравӣ
