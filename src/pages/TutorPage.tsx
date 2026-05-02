@@ -130,9 +130,9 @@ export function TutorPage() {
         const answer =
           server ??
           (latest === 'down'
-            ? 'AI сервер дастрас нест. Лутфан серверро ба кор андозед.'
+            ? 'AI сервер дастрас нест. Лутфан баъдтар кӯшиш кунед.'
             : latest === 'no_key'
-              ? 'AI калид надорад (GEMINI_API_KEY). Онро дар сервер гузоред.'
+              ? 'AI танзим нашудааст (калиди Gemini нест).'
               : demoAnswerTj(text))
         const a: Msg = { id: uid(), role: 'assistant', text: answer, at: Date.now() }
         setMessages((m) => [...m, a])
@@ -180,7 +180,7 @@ export function TutorPage() {
                       ? `geminiConfigured: ${String((parsed as { geminiConfigured?: boolean }).geminiConfigured)}`
                       : '',
                     '',
-                    'Агар geminiConfigured=false бошад: калидро дар server/.env гузоред ва dev:full-ро боз оғоз кунед.',
+                    'Агар geminiConfigured=false бошад: дар Vercel → Project Settings → Environment Variables калиди GEMINI_API_KEY-ро гузоред ва redeploy кунед.',
                   ]
                     .filter(Boolean)
                     .join('\n'),
@@ -221,12 +221,12 @@ export function TutorPage() {
         <div className="mb-3 rounded-3xl border border-bm-border bg-black/20 p-4 text-xs text-bm-muted">
           {apiStatus === 'down' && (
             <div>
-              AI сервер дастрас нест. Барои ҷавобҳои воқеӣ: <code className="rounded bg-white/5 px-2 py-1">npm run dev:full</code> иҷро кунед.
+              AI сервер дастрас нест. Лутфан баъдтар кӯшиш кунед.
             </div>
           )}
           {apiStatus === 'no_key' && (
             <div>
-              AI сервер ҳаст, аммо <code className="rounded bg-white/5 px-2 py-1">GEMINI_API_KEY</code> нест. `.env`‑ро пур кунед.
+              AI танзим нашудааст. Барои прод: дар Vercel → Environment Variables калиди <code className="rounded bg-white/5 px-2 py-1">GEMINI_API_KEY</code>-ро гузоред ва redeploy кунед.
             </div>
           )}
           {apiStatus === 'unknown' && <div>AI ҳолат санҷида мешавад…</div>}
